@@ -57,6 +57,10 @@ float dec(float x)
 
 
 // @ART-param: ["curve", "$CTL_CURVE;Curve", 0, ["CatmullRom", 0, 0, 1, 1]]
+
+// @ART-preset: ["contrast", "Contrast boost", {"curve": ["Spline", 0, 0, 0.123506, 0.10338, 0.306773, 0.333996, 0.689243, 0.763419, 1, 1]}]
+// @ART-preset: ["shadow_lifting", "Shadows lifting", {"curve": ["CatmullRom", 0, 0, 0.14741, 0.182903, 0.262948, 0.27833, 0.34, 0.34, 1, 1]}]
+
 void ART_main(varying float r, varying float g, varying float b,
               output varying float rout,
               output varying float gout,
