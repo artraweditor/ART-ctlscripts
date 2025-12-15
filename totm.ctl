@@ -4,7 +4,10 @@
 // inspired by the AgX picture formation (https://github.com/sobotka/AgX)
 // the name is obviously a joke...
 // 
-// @ART-param: ["curve", "Base curve", 0, ["CatmullRom", 0, 0, 0.1, 0.1, 0.55, 0.87, 1, 1]]
+// @ART-param: ["curve", "Base Curve", 0, ["CatmullRom", 0, 0, 0.1, 0.1, 0.55, 0.87, 1, 1]]
+// @ART-param: ["rcurve", "R", 0, ["Linear"], "RGB Curves"]
+// @ART-param: ["gcurve", "G", 0, ["Linear"], "RGB Curves"]
+// @ART-param: ["bcurve", "B", 0, ["Linear"], "RGB Curves"]
 // @ART-param: ["brightness", "Brightness", -1, 1, 0, 0.01]
 // @ART-param: ["contrast", "Contrast", -1, 1, 0, 0.01]
 // @ART-param: ["sat", "Saturation", 0.0, 2.0, 1.0, 0.01]
@@ -23,7 +26,9 @@ const float AgXInsetMatrix_t[3][3] = transpose_f33(AgXInsetMatrix);
 
 const float AgXOutsetMatrix_t[3][3] = invert_f33(AgXInsetMatrix_t);
 
-float[3] tone_mapping(float rgb[3], float white_pt, float curve[256], float sat, float white_ev, float black_ev, float pivot)
+float[3] tone_mapping(float rgb[3], float white_pt, float curve[256],
+                      float rcurve[256], float gcurve[256], float bcurve[256],
+                      float sat, float white_ev, float black_ev, float pivot)
 {
     float v[3] = {fmax(0.0, rgb[0]), fmax(0.0, rgb[1]), fmax(0.0, rgb[2])};
 
@@ -45,6 +50,10 @@ float[3] tone_mapping(float rgb[3], float white_pt, float curve[256], float sat,
         v[i] = pow(v[i], e);
         v[i] = luteval(curve, v[i]);
     }
+    
+    v[0] = luteval(rcurve, v[0]);
+    v[1] = luteval(gcurve, v[1]);
+    v[2] = luteval(bcurve, v[2]);
 
     v = mult_f3_f33(v, AgXOutsetMatrix_t);
 
@@ -68,7 +77,9 @@ void ART_main(varying float r, varying float g, varying float b,
               output varying float rout,
               output varying float gout,
               output varying float bout,
-              float curve[256], float sat, float white_pt, float brightness,
+              float curve[256],
+              float rcurve[256], float gcurve[256], float bcurve[256],
+              float sat, float white_pt, float brightness,
               float white_ev, float black_ev, float contrast)
 {
     float rgb[3] = { r, g, b };
@@ -77,7 +88,8 @@ void ART_main(varying float r, varying float g, varying float b,
         rgb[i] = pow(fmax(rgb[i], 0) / 0.18, c) * 0.18;
     }
     const float pivot = 0.5 + brightness * 0.3;
-    rgb = tone_mapping(rgb, white_pt, curve, sat, white_ev, black_ev, pivot);
+    rgb = tone_mapping(rgb, white_pt, curve, rcurve, gcurve, bcurve,
+                       sat, white_ev, black_ev, pivot);
     rout = rgb[0];
     gout = rgb[1];
     bout = rgb[2];
