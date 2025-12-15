@@ -801,15 +801,15 @@ float3 transform(float p_R, float p_G, float p_B,
 // @ART-colorspace: "rec2020"
 // @ART-lut: 64
 
-// @ART-param: ["ex", "Exposure", -4.0, 4.0, 0.697437, 0.01]
-// @ART-param: ["tn_Lp", "Display Peak Luminance", 100, 1000, 100, 0.1]
-// @ART-param: ["tn_gb", "HDR Grey Boost", 0, 1, 0.13, 0.01]
-// @ART-param: ["pt_hdr", "HDR Purity", 0, 1, 0.5, 0.01]
-// @ART-param: ["look_preset", "Look Preset", ["Default", "Colorful", "Umbra", "Base"], 0]
-// @ART-param: ["tonescale_preset", "Tonescale Preset", ["Use Look Preset", "High-Contrast", "Low-Contrast", "ACES-1.x", "ACES-2.0", "Marvelous Tonescape", "Arriba Tonecall", "DaGrinchi Tonegroan", "Aery Tonescale", "Umbra Tonescale"], 0]
-// @ART-param: ["_cwp", "Creative White", ["D65", "D60", "D55", "D50", "Use Look Preset"], 0]
-// @ART-param: ["_cwp_rng", "Creative White Range", 0, 1, 0.5, 0.01]
-// @ART-param: ["display_gamut", "Display gamut", ["Rec.709", "P3 D65", "Rec.2020"]]
+// @ART-param: ["ex", "$CTL_ODRT_GAIN;Exposure", -4.0, 4.0, 0.697437, 0.01]
+// @ART-param: ["tn_Lp", "$CTL_ODRT_DISPLAY_PEAK_LUMINANCE;Display Peak Luminance", 100, 1000, 100, 0.1]
+// @ART-param: ["tn_gb", "$CTL_ODRT_HDR_GREY_BOOST;HDR Grey Boost", 0, 1, 0.13, 0.01]
+// @ART-param: ["pt_hdr", "$CTL_ODRT_HDR_PURITY;HDR Purity", 0, 1, 0.5, 0.01]
+// @ART-param: ["look_preset", "$CTL_ODRT_LOOK_PRESET;Look Preset", ["$CTL_ODRT_DEFAULT;Default", "$CTL_ODRT_COLORFUL;Colorful", "$CTL_ODRT_UMBRA;Umbra", "$CTL_ODRT_BASE;Base"], 0]
+// @ART-param: ["tonescale_preset", "$CTL_ODRT_TONESCALE_PRESET;Tonescale Preset", ["$CTL_ODRT_USE_LOOK_PRESET;Use Look Preset", "$CTL_ODRT_HIGH_CONTRAST;High-Contrast", "$CTL_ODRT_LOW_CONTRAST;Low-Contrast", "ACES-1.x", "ACES-2.0", "Marvelous Tonescape", "Arriba Tonecall", "DaGrinchi Tonegroan", "Aery Tonescale", "Umbra Tonescale"], 0]
+// @ART-param: ["_cwp", "$CTL_ODRT_CREATIVE_WHITE;Creative White", ["D65", "D60", "D55", "D50", "$CTL_ODRT_USE_LOOK_PRESET;Use Look Preset"], 0]
+// @ART-param: ["_cwp_rng", "$CTL_ODRT_CREATIVE_WHITE_RANGE;Creative White Range", 0, 1, 0.5, 0.01]
+// @ART-param: ["display_gamut", "$CTL_ODRT_DISPLAY_GAMUT;Display gamut", ["Rec.709", "P3 D65", "Rec.2020"]]
 
 void ART_main(varying float r, varying float g, varying float b,
               output varying float rout,

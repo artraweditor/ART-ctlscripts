@@ -4,16 +4,16 @@
 // inspired by the AgX picture formation (https://github.com/sobotka/AgX)
 // the name is obviously a joke...
 // 
-// @ART-param: ["curve", "Base Curve", 0, ["CatmullRom", 0, 0, 0.1, 0.1, 0.55, 0.87, 1, 1]]
+// @ART-param: ["curve", "$CTL_BASE_CURVE;Base curve", 0, ["CatmullRom", 0, 0, 0.1, 0.1, 0.55, 0.87, 1, 1]]
 // @ART-param: ["rcurve", "R", 0, ["Linear"], "RGB Curves"]
 // @ART-param: ["gcurve", "G", 0, ["Linear"], "RGB Curves"]
 // @ART-param: ["bcurve", "B", 0, ["Linear"], "RGB Curves"]
-// @ART-param: ["brightness", "Brightness", -1, 1, 0, 0.01]
-// @ART-param: ["contrast", "Contrast", -1, 1, 0, 0.01]
-// @ART-param: ["sat", "Saturation", 0.0, 2.0, 1.0, 0.01]
-// @ART-param: ["white_pt", "White point", 1, 10, 1, 0.1]
-// @ART-param: ["white_ev", "White relative exposure", 1, 10, 4.5, 0.01]
-// @ART-param: ["black_ev", "Black relative exposure", -20, -1, -13.5, 0.01]
+// @ART-param: ["brightness", "$CTL_BRIGHTNESS;Brightness", -1, 1, 0, 0.01]
+// @ART-param: ["contrast", "$CTL_CONTRAST;Contrast", -1, 1, 0, 0.01]
+// @ART-param: ["sat", "$CTL_SATURATION;Saturation", 0.0, 2.0, 1.0, 0.01]
+// @ART-param: ["white_pt", "$CTL_WHITE_POINT;White point", 1, 10, 1, 0.1]
+// @ART-param: ["white_ev", "$CTL_WHITE_RELATIVE_EXPOSURE;White relative exposure", 1, 10, 4.5, 0.01]
+// @ART-param: ["black_ev", "$CTL_BLACK_RELATIVE_EXPOSURE;Black relative exposure", -20, -1, -13.5, 0.01]
 
 import "_artlib";
 

@@ -31,9 +31,9 @@ SOFTWARE.
 // @ART-label: "$CTL_ART_OUTPUT_TRANSFORM;ART output transform"
 // 
 
-// @ART-param: ["mode", "Color mode", ["Legacy", "Blender-AgX", "Neutral"], 2]
+// @ART-param: ["mode", "$CTL_COLOR_MODE;Color mode", ["Legacy", "Blender-AgX", "Neutral"], 2]
 // @ART-param: ["evgain", "$CTL_GAIN;Gain (Ev)", -4.0, 4.0, 0.0, 0.01]
-// @ART-param: ["brightness", "Brightness", -100, 100, 0]
+// @ART-param: ["brightness", "$CTL_BRIGHTNESS;Brightness", -100, 100, 0]
 // @ART-param: ["contrast", "$CTL_CONTRAST;Contrast", -100, 100, 25]
 // @ART-param: ["sat", "$CTL_SATURATION;Saturation", -100, 100, 0]
 // @ART-param: ["white_point", "$CTL_WHITE_POINT;White point", 0.8, 40.0, 1.0, 0.1]

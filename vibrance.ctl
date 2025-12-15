@@ -1,4 +1,4 @@
-// @ART-label: "Saturation/Vibrance"
+// @ART-label: "$CTL_SATURATION_VIBRANCE;Saturation/Vibrance"
 // @ART-colorspace: "rec709"
 
 
@@ -15,8 +15,8 @@ float apply_vibrance(float x, float vib)
 }
 
 
-// @ART-param: ["saturation", "Saturation", -100, 100, 0]
-// @ART-param: ["vibrance", "Vibrance", -100, 100, 0]
+// @ART-param: ["saturation", "$CTL_SATURATION;Saturation", -100, 100, 0]
+// @ART-param: ["vibrance", "$CTL_VIBRANCE;Vibrance", -100, 100, 0]
 void ART_main(varying float r, varying float g, varying float b,
               output varying float rout,
               output varying float gout,

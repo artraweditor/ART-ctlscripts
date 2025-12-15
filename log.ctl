@@ -1,5 +1,5 @@
 // @ART-colorspace: "rec2020"
-// @ART-label: "Log conversion"
+// @ART-label: "$CTL_LOG_CONVERSION;Log conversion"
 // @ART-lut: -1
 
 import "_artlib";
@@ -145,8 +145,8 @@ float lin_to_ACEScct(float x)
 }
 
 
-// @ART-param: ["direction", "Direction", ["Forward (linear to log)", "Inverse (log to linear)"], 0]
-// @ART-param: ["mode", "Log curve", ["ACEScct", "ARRI LogC4", "RED Log3G10", "Sony Slog3", "Fujifilm F-Log2", "AgX log2"], 0]
+// @ART-param: ["direction", "$CTL_DIRECTION;Direction", ["$CTL_FORWARD_LIN_LOG;Forward (linear to log)", "$CTL_FORWARD_LOG_LIN;Inverse (log to linear)"], 0]
+// @ART-param: ["mode", "$CTL_LOG_CURVE;Log curve", ["ACEScct", "ARRI LogC4", "RED Log3G10", "Sony Slog3", "Fujifilm F-Log2", "AgX log2"], 0]
 void ART_main(varying float r, varying float g, varying float b,
               output varying float rout,
               output varying float gout,

@@ -1,10 +1,10 @@
 # English
 #
-# CTL scripts 1.1
+# CTL scripts 1.2+
 #
 # Default language file
 #
-#2024-11-08 Bereczky Péter
+#2025-12-14 Bereczky Péter
 #
 CTL_ADD;Add
 CTL_AMOUNT;Amount
@@ -101,3 +101,29 @@ CTL_WB_AND_PRIMARIES_CORRECTION;WB and primaries correction
 CTL_WHITE;White
 CTL_WHITE_POINT;White point
 CTL_YELLOW;Yellow
+CTL_WHITE_RELATIVE_EXPOSURE;White relative exposure
+CTL_BLACK_RELATIVE_EXPOSURE;Black relative exposure
+CTL_LOG_CONVERSION;Log conversion
+CTL_FORWARD_LIN_LOG;Előre (lineárisról logaritmikusra)
+CTL_FORWARD_LOG_LIN;Fordított (logaritmikusról lineárisra)
+CTL_LOG_CURVE;Log curve
+CTL_COLOR_MODE;Color mode
+CTL_BRIGHTNESS;Brightness
+CTL_BLACK_POINT;Black point
+CTL_ODRT_GAIN;Exposure
+CTL_ODRT_DISPLAY_PEAK_LUMINANCE;Display Peak Luminance
+CTL_ODRT_HDR_GREY_BOOST;HDR Grey Boost
+CTL_ODRT_HDR_PURITY;HDR Purity
+CTL_ODRT_LOOK_PRESET;Look Preset
+CTL_ODRT_DEFAULT;Default
+CTL_ODRT_COLORFUL;Colorful
+CTL_ODRT_UMBRA;Umbra
+CTL_ODRT_BASE;Base
+CTL_ODRT_TONESCALE_PRESET;Tonescale Preset
+CTL_ODRT_USE_LOOK_PRESET;Use Look Preset
+CTL_ODRT_HIGH_CONTRAST;High-Contrast
+CTL_ODRT_LOW_CONTRAST;Low-Contrast
+CTL_ODRT_CREATIVE_WHITE;Creative White
+CTL_ODRT_CREATIVE_WHITE_RANGE;Creative White Range
+CTL_ODRT_DISPLAY_GAMUT;Display gamut
+CTL_BASE_CURVE;Base curve

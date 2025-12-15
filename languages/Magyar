@@ -1,10 +1,10 @@
 # Hungarian
 #
-# CTL scripts 1.2
+# CTL scripts 1.2+
 #
 # Default language file
 #
-#2025-06-10 Bereczky Péter
+#2025-12-14 Bereczky Péter
 #
 CTL_ADD;Hozzáadás
 CTL_AMOUNT;Összeg
@@ -103,5 +103,27 @@ CTL_WHITE_POINT;Fehér pont
 CTL_YELLOW;Sárga
 CTL_WHITE_RELATIVE_EXPOSURE;Fehér relatív expozíció
 CTL_BLACK_RELATIVE_EXPOSURE;Fekete relatív expozíció
+CTL_LOG_CONVERSION;Logaritmikus konverzió
 CTL_FORWARD_LIN_LOG;Előre (lineárisról logaritmikusra)
 CTL_FORWARD_LOG_LIN;Fordított (logaritmikusról lineárisra)
+CTL_LOG_CURVE;Logaritmikus görbe
+CTL_COLOR_MODE;Színmód
+CTL_BRIGHTNESS;Fényesség
+CTL_BLACK_POINT;Fekete pont
+CTL_ODRT_GAIN;Előtte történő Exp. Komp. (Fé)
+CTL_ODRT_DISPLAY_PEAK_LUMINANCE;Kijelző csúcs fényerő
+CTL_ODRT_HDR_GREY_BOOST;HDR szürke kiemelése
+CTL_ODRT_HDR_PURITY;HDR tisztaság
+CTL_ODRT_LOOK_PRESET;Előre beállított nézet
+CTL_ODRT_DEFAULT;Alapértelmezett
+CTL_ODRT_COLORFUL;Színes
+CTL_ODRT_UMBRA;Umbra
+CTL_ODRT_BASE;Alap
+CTL_ODRT_TONESCALE_PRESET;Előre beállított tónusskála
+CTL_ODRT_USE_LOOK_PRESET;Előre beállított nézet alkalmazása
+CTL_ODRT_HIGH_CONTRAST;Magas kontraszt
+CTL_ODRT_LOW_CONTRAST;Alacsony kontraszt
+CTL_ODRT_CREATIVE_WHITE;Kreatív fehér
+CTL_ODRT_CREATIVE_WHITE_RANGE;Kreatív fehér tartomány
+CTL_ODRT_DISPLAY_GAMUT;Képernyő gamut
+CTL_BASE_CURVE;Alapgörbe
