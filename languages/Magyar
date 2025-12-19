@@ -4,7 +4,7 @@
 #
 # Default language file
 #
-#2025-12-14 Bereczky Péter
+#2025-12-19 Bereczky Péter
 #
 CTL_ADD;Hozzáadás
 CTL_AMOUNT;Összeg
@@ -116,7 +116,7 @@ CTL_ODRT_HDR_GREY_BOOST;HDR szürke kiemelése
 CTL_ODRT_HDR_PURITY;HDR tisztaság
 CTL_ODRT_LOOK_PRESET;Előre beállított nézet
 CTL_ODRT_DEFAULT;Alapértelmezett
-CTL_ODRT_COLORFUL;Színes
+CTL_ODRT_COLORFUL;Élénk
 CTL_ODRT_UMBRA;Umbra
 CTL_ODRT_BASE;Alap
 CTL_ODRT_TONESCALE_PRESET;Előre beállított tónusskála
@@ -127,3 +127,71 @@ CTL_ODRT_CREATIVE_WHITE;Kreatív fehér
 CTL_ODRT_CREATIVE_WHITE_RANGE;Kreatív fehér tartomány
 CTL_ODRT_DISPLAY_GAMUT;Képernyő gamut
 CTL_BASE_CURVE;Alapgörbe
+CTL_ODRT_OPENDRT_FULL;OpenDRT Teljes
+CTL_ODRT_DISPLAY_GREY_LUMINANCE;Szürke megjelenítésének fénysűrűsége
+CTL_ODRT_SHOULDER_CLIP;Csúcsfények vágása
+CTL_ODRT_TOE;Alsó görbület (árnyékok tömörítése)
+CTL_ODRT_ENABLE;Engedélyezés
+CTL_ODRT_CONTRAST_HIGH;Magas kontraszt
+CTL_ODRT_CONTRAST_LOW;Alacsony kontraszt
+CTL_ODRT_VALUE;Érték
+CTL_ODRT_PIVOT;Kulcspont (Fé)
+CTL_ODRT_STRENGTH;Erősség
+CTL_ODRT_WIDTH;Szélesség
+CTL_ODRT_TEMPERATURE;Színhőmérséklet
+CTL_ODRT_WEIGHT_R;R Súlyozása
+CTL_ODRT_WEIGHT_B;B Súlyozása
+CTL_ODRT_RENDER_SPACE;Renderelési terület
+CTL_ODRT_PURITY_COMPRESS;Tisztaság tömörítése
+CTL_ODRT_LIMIT_LOW;Alsó határ
+CTL_ODRT_LIMIT_LOW_R;Alsó határ R
+CTL_ODRT_LIMIT_LOW_G;Alsó határ G
+CTL_ODRT_LIMIT_LOW_B;Alsó határ B
+CTL_ODRT_LIMIT_HIGHT;Felső határ
+CTL_ODRT_LIMIT_HIGHT_R;Felső határ R
+CTL_ODRT_LIMIT_HIGHT_B;Felső határ B
+CTL_ODRT_PURITY_SOFTCLIP;Tisztaság lágy vágása
+CTL_ODRT_MID_PURITY;Középtónusok tisztasága
+CTL_ODRT_LOW;Alacsony
+CTL_ODRT_LOW_RANGE;Alacsony tartomány
+CTL_ODRT_LOW_STRENGTH;Alacsony erősség
+CTL_ODRT_HIGH;Magas
+CTL_ODRT_HIGH_RANGE;Magas tartomány
+CTL_ODRT_HIGH_STRENGTH;Magas erősség
+CTL_ODRT_BRILLANCE;Ragyogás
+CTL_ODRT_RANGE;Tartomány
+CTL_ODRT_POST_BRILLANCE;Utólagos ragyogás
+CTL_ODRT_R_RANGE;R tartomány
+CTL_ODRT_HUE_CONTRAST;Színezet kontraszt
+CTL_ODRT_HUESHIFT_RGB;Színárnyalat eltolás RGB
+CTL_ODRT_HUESHIFT_CMY;Színárnyalat eltolás CMY
+CTL_ODRT_G_RANGE;G tartomány
+CTL_ODRT_B_RANGE;B tartomány
+CTL_ODRT_C_RANGE;C tartomány
+CTL_ODRT_M_RANGE;M tartomány
+CTL_ODRT_Y_RANGE;Y tartomány
+CTL_ODRT_SURROUND;Környzet
+CTL_ODRT_DARK;Sötét
+CTL_ODRT_DIM;Félhomály
+CTL_ODRT_BRIGHT;Világos
+CTL_ODRT_LOOK_STANDARD;Kinézet - Normál
+CTL_ODRT_LOOK_ARRIBA;Kinézet - Arriba
+CTL_ODRT_LOOK_SYLVAN;Kinézet - Sylvan
+CTL_ODRT_LOOK_COLORFUL;Kinézet - Élénk
+CTL_ODRT_LOOK_AERY;Kinézet - Aery
+CTL_ODRT_LOOK_DYSTOPIC;Kinézet - Dystopic
+CTL_ODRT_LOOK_UMBRA;Kinézet - Umbra
+CTL_ODRT_LOOK_BASE;Kinézet - Alap
+CTL_ODRT_TONESCALE_LOW_CONTRAST;Tónusskála - Alacsony kontraszt
+CTL_ODRT_TONESCALE_MEDIUM_CONTRAST;Tónusskála - Közepes kontraszt
+CTL_ODRT_TONESCALE_HIGH_CONTRAST;Tónusskála - Magas kontraszt
+CTL_ODRT_TONESCALE_ARRIBA;Tónusskála - Arriba
+CTL_ODRT_TONESCALE_SYLVAN;Tónusskála - Sylvan
+CTL_ODRT_TONESCALE_COLORFUL;Tónusskála - Élénk
+CTL_ODRT_TONESCALE_AERY;Tónusskála - Aery
+CTL_ODRT_TONESCALE_DYSTOPIC;Tónusskála - Dystopic
+CTL_ODRT_TONESCALE_UMBRA;Tónusskála - Umbra
+CTL_ODRT_TONESCALE_ACES_1_X;Tónusskála - ACES-1.x
+CTL_ODRT_TONESCALE_ACES_2_0;Tónusskála - ACES-2.0
+CTL_ODRT_TONESCALE_MARVELOUS_TONESCAPE;Tónusskála - Marvelous Tonescape
+CTL_ODRT_TONESCALE_DAGRINCHI_TONEGROAN;Tónusskála - DaGrinchi Tonegroan
