@@ -4,7 +4,7 @@
 #
 # Default language file
 #
-#2025-12-14 Bereczky Péter
+#2026-02-21 Bereczky Péter
 #
 CTL_ADD;Add
 CTL_AMOUNT;Amount
@@ -195,3 +195,4 @@ CTL_ODRT_TONESCALE_ACES_1_X;Tonescale - ACES-1.x
 CTL_ODRT_TONESCALE_ACES_2_0;Tonescale - ACES-2.0
 CTL_ODRT_TONESCALE_MARVELOUS_TONESCAPE;Tonescale - Marvelous Tonescape
 CTL_ODRT_TONESCALE_DAGRINCHI_TONEGROAN;Tonescale - DaGrinchi Tonegroan
+CTL_RGB_CURVES;RGB Curves

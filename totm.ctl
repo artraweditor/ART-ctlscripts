@@ -5,9 +5,9 @@
 // the name is obviously a joke...
 // 
 // @ART-param: ["curve", "$CTL_BASE_CURVE;Base curve", 0, ["CatmullRom", 0, 0, 0.1, 0.1, 0.55, 0.87, 1, 1]]
-// @ART-param: ["rcurve", "R", 0, ["Linear"], "RGB Curves"]
-// @ART-param: ["gcurve", "G", 0, ["Linear"], "RGB Curves"]
-// @ART-param: ["bcurve", "B", 0, ["Linear"], "RGB Curves"]
+// @ART-param: ["rcurve", "R", 0, ["Linear"], "$CTL_RGB_CURVES;RGB Curves"]
+// @ART-param: ["gcurve", "G", 0, ["Linear"], "$CTL_RGB_CURVES;RGB Curves"]
+// @ART-param: ["bcurve", "B", 0, ["Linear"], "$CTL_RGB_CURVES;RGB Curves"]
 // @ART-param: ["brightness", "$CTL_BRIGHTNESS;Brightness", -1, 1, 0, 0.01]
 // @ART-param: ["contrast", "$CTL_CONTRAST;Contrast", -1, 1, 0, 0.01]
 // @ART-param: ["sat", "$CTL_SATURATION;Saturation", 0.0, 2.0, 1.0, 0.01]

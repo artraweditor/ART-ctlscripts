@@ -4,7 +4,7 @@
 #
 # Default language file
 #
-#2025-12-19 Bereczky Péter
+#2026-02-21 Bereczky Péter
 #
 CTL_ADD;Hozzáadás
 CTL_AMOUNT;Összeg
@@ -195,3 +195,4 @@ CTL_ODRT_TONESCALE_ACES_1_X;Tónusskála - ACES-1.x
 CTL_ODRT_TONESCALE_ACES_2_0;Tónusskála - ACES-2.0
 CTL_ODRT_TONESCALE_MARVELOUS_TONESCAPE;Tónusskála - Marvelous Tonescape
 CTL_ODRT_TONESCALE_DAGRINCHI_TONEGROAN;Tónusskála - DaGrinchi Tonegroan
+CTL_RGB_CURVES;RGB görbék
