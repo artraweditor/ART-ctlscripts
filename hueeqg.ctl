@@ -49,3 +49,17 @@ void ART_main(varying float r, varying float g, varying float b,
     gout = rgb[1];
     bout = rgb[2];
 }
+
+// @ART-pipette: ["hcurve", "scurve", "lcurve"]
+void ART_fill_pipette(varying float r, varying float g, varying float b,
+                      output varying float rout,
+                      output varying float gout,
+                      output varying float bout,
+                      int curve_id)
+{
+    float hsl[3] = rgb2okhcl(r, g, b);
+    float h = hue01(hsl[0]);
+    rout = h;
+    gout = h;
+    bout = h;
+}

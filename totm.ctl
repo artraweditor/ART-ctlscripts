@@ -26,9 +26,10 @@ const float AgXInsetMatrix_t[3][3] = transpose_f33(AgXInsetMatrix);
 
 const float AgXOutsetMatrix_t[3][3] = invert_f33(AgXInsetMatrix_t);
 
-float[3] tone_mapping(float rgb[3], float white_pt, float curve[256],
-                      float rcurve[256], float gcurve[256], float bcurve[256],
-                      float sat, float white_ev, float black_ev, float pivot)
+// the part of the tone mapping before the base curve: returns, for each
+// channel, the input of the base curve
+float[3] base_curve_input(float rgb[3], float sat, float white_ev,
+                          float black_ev, float pivot)
 {
     float v[3] = {fmax(0.0, rgb[0]), fmax(0.0, rgb[1]), fmax(0.0, rgb[2])};
 
@@ -48,9 +49,20 @@ float[3] tone_mapping(float rgb[3], float white_pt, float curve[256],
         v[i] = clamp(v[i], 0.0, 1.0);
         float e = log(pivot) / log(p);
         v[i] = pow(v[i], e);
+    }
+    return v;
+}
+
+float[3] tone_mapping(float rgb[3], float white_pt, float curve[256],
+                      float rcurve[256], float gcurve[256], float bcurve[256],
+                      float sat, float white_ev, float black_ev, float pivot)
+{
+    float v[3] = base_curve_input(rgb, sat, white_ev, black_ev, pivot);
+
+    for (int i = 0; i < 3; i = i+1) {
         v[i] = luteval(curve, v[i]);
     }
-    
+
     v[0] = luteval(rcurve, v[0]);
     v[1] = luteval(gcurve, v[1]);
     v[2] = luteval(bcurve, v[2]);
@@ -93,4 +105,38 @@ void ART_main(varying float r, varying float g, varying float b,
     rout = rgb[0];
     gout = rgb[1];
     bout = rgb[2];
+}
+
+// @ART-pipette: ["curve", "rcurve", "gcurve", "bcurve"]
+void ART_fill_pipette(varying float r, varying float g, varying float b,
+                      output varying float rout,
+                      output varying float gout,
+                      output varying float bout,
+                      int curve_id,
+                      float curve[256],
+                      float sat, float brightness,
+                      float white_ev, float black_ev, float contrast)
+{
+    float rgb[3] = { r, g, b };
+    const float c = 1.0 + contrast;
+    for (int i = 0; i < 3; i = i+1) {
+        rgb[i] = pow(fmax(rgb[i], 0) / 0.18, c) * 0.18;
+    }
+    const float pivot = 0.5 + brightness * 0.3;
+    float v[3] = base_curve_input(rgb, sat, white_ev, black_ev, pivot);
+    if (curve_id == 0) {
+        // base curve: its input
+        rout = v[0];
+        gout = v[1];
+        bout = v[2];
+    } else {
+        // the R, G and B curves: the output of the base curve, for the
+        // corresponding channel only
+        for (int i = 0; i < 3; i = i+1) {
+            v[i] = luteval(curve, v[i]);
+        }
+        rout = ite(curve_id == 1, v[0], -1);
+        gout = ite(curve_id == 2, v[1], -1);
+        bout = ite(curve_id == 3, v[2], -1);
+    }
 }
