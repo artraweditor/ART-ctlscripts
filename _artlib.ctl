@@ -154,6 +154,9 @@ float fmax(float a, float b)
 
 float clamp(float x, float lo, float hi)
 {
+    if (isnan_f(x)) {
+        return 0;
+    }
     return fmax(fmin(x, hi), lo);
 }
 
