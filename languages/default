@@ -25,6 +25,7 @@ CTL_CONTRAST;Contrast
 CTL_CURVE;Curve
 CTL_CYAN;Cyan
 CTL_DENSITY;Density
+CTL_DETAIL_PROTECTION;Detail protection
 CTL_DIRECTION;Direction
 CTL_EQUALIZER_BY_HUE;Equalizer by hue
 CTL_EQUALIZER_BY_LUMINANCE;Equalizer by luminance

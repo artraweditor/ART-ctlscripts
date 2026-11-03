@@ -434,6 +434,119 @@ float[3] okhcl2rgb(float hsl[3])
 }
 
 
+// JzAzBz (https://doi.org/10.1364/OE.25.015131), as implemented in ART
+// (Color::rgb2jzazbz and friends). The XYZ values are taken as absolute
+// luminances in cd/m^2, i.e. an RGB value of 1 has a luminance of 1 cd/m^2,
+// so that the functions below give the same Jz, cz and hz as ART does (e.g.
+// for the "C" and "H" guides, see @ART-guides) for the same colour.
+
+// PQ-like transfer function of JzAzBz (input in cd/m^2) and its inverse
+float jz_pq(float x)
+{
+    const float xx = pow(fmax(x, 1e-10) * 1e-4, 0.1593017578125);
+    return pow((0.8359375 + 18.8515625 * xx) / (1.0 + 18.6875 * xx),
+               134.034375);
+}
+
+
+float jz_pq_inv(float x)
+{
+    const float xx = pow(fmax(x, 1e-10), 7.460772656268214e-03);
+    return 1e4 * pow((0.8359375 - xx) / (18.6875 * xx - 18.8515625),
+                     6.277394636015326);
+}
+
+
+// the matrices are transposed, to be used with mult_f3_f33
+const float jz_xyz2lms_t[3][3] = {
+    {0.674207838, 0.149284160, 0.070941080},
+    {0.382799340, 0.739628340, 0.174768000},
+    {-0.047570458, 0.083327300, 0.670970020}
+};
+
+const float jz_lms2xyz_t[3][3] = invert_f33(jz_xyz2lms_t);
+
+const float jz_lms2izazbz_t[3][3] = {
+    {0.5, 3.524000, 0.199076},
+    {0.5, -4.066708, 1.096799},
+    {0.0, 0.542708, -1.295875}
+};
+
+const float jz_izazbz2lms_t[3][3] = invert_f33(jz_lms2izazbz_t);
+
+const float jz_d0 = 1.6295499532821566e-11;
+
+
+// XYZ (D65-adapted) <-> JzAzBz (in the order Jz, az, bz)
+float[3] d65xyz2jzazbz(float xyz[3])
+{
+    float lms[3] = mult_f3_f33(xyz, jz_xyz2lms_t);
+    for (int i = 0; i < 3; i = i+1) {
+        lms[i] = jz_pq(lms[i]);
+    }
+    float iab[3] = mult_f3_f33(lms, jz_lms2izazbz_t);
+    float jab[3] = {
+        (0.44 * iab[0]) / (1.0 - 0.56 * iab[0]) - jz_d0,
+        iab[1],
+        iab[2]
+    };
+    return jab;
+}
+
+
+float[3] jzazbz2d65xyz(float jab[3])
+{
+    const float jz = jab[0] + jz_d0;
+    float iab[3] = { jz / (0.44 + 0.56 * jz), jab[1], jab[2] };
+    float lms[3] = mult_f3_f33(iab, jz_izazbz2lms_t);
+    for (int i = 0; i < 3; i = i+1) {
+        lms[i] = jz_pq_inv(lms[i]);
+    }
+    return mult_f3_f33(lms, jz_lms2xyz_t);
+}
+
+
+// JzAzBz <-> polar form (in the order Jz, cz, hz), where cz is the chroma and
+// hz the hue angle in radians, in (-pi, pi]. Note that this is *not* the order
+// used by the OKHCL functions above (hue, chroma, lightness)
+float[3] jzazbz2jzczhz(float jab[3])
+{
+    float jch[3] = { jab[0], hypot(jab[1], jab[2]), atan2(jab[2], jab[1]) };
+    return jch;
+}
+
+
+float[3] jzczhz2jzazbz(float jch[3])
+{
+    float jab[3] = { jch[0], jch[1] * cos(jch[2]), jch[1] * sin(jch[2]) };
+    return jab;
+}
+
+
+// The "C" guide (see @ART-guides) is the cz of JzAzBz multiplied by this, so
+// that strongly saturated colours are near 1. To compare it with the cz
+// computed from the pixel (rgb2jzczhz), multiply that by ART_GUIDE_C_SCALE or
+// divide the guide by it. 
+const float ART_GUIDE_C_SCALE = 15.0;
+
+
+// RGB (linear Rec.2020, i.e. the colour space declared with
+// @ART-colorspace: "rec2020") <-> JzAzBz in polar form (Jz, cz, hz)
+float[3] rgb2jzczhz(float r, float g, float b)
+{
+    float rgb[3] = { r, g, b };
+    float xyz[3] = mult_f3_f33(rgb, d65xyz_rec2020_t);
+    return jzazbz2jzczhz(d65xyz2jzazbz(xyz));
+}
+
+
+float[3] jzczhz2rgb(float jch[3])
+{
+    float xyz[3] = jzazbz2d65xyz(jzczhz2jzazbz(jch));
+    return mult_f3_f33(xyz, rec2020_d65xyz_t);
+}
+
+
 float[3] temp_to_xy(float temp)
 {
     float T = temp;

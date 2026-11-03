@@ -138,8 +138,10 @@ float apply_vibrance(float x, float vib)
 // @ART-param: ["highlights", "$TP_TONE_EQUALIZER_BAND_3", -100, 100, 0]
 // @ART-param: ["whites", "$TP_TONE_EQUALIZER_BAND_4", -100, 100, 0]
 // @ART-param: ["pivot", "$TP_TONE_EQUALIZER_PIVOT", -4, 4, 0, 0.05]
+// @ART-param: ["detail", "$CTL_DETAIL_PROTECTION;Detail protection", 0, 100, 100]
 
 void ART_main(varying float r, varying float g, varying float b,
+              varying float guide,
               output varying float rout,
               output varying float gout,
               output varying float bout,
@@ -149,13 +151,14 @@ void ART_main(varying float r, varying float g, varying float b,
               int midtones,
               int highlights,
               int whites,
-              float pivot)
+              float pivot,
+              int detail)
 {
     const float gain = 1.0 / pow(2, -pivot);
     const float factors[12] = get_factors(blacks, shadows, midtones,
                                           highlights, whites);
     float rgb[3] = { r * gain, g * gain, b * gain };
-    float Y = lum(rgb);
+    float Y = intp(detail / 100.0, guide * gain, lum(rgb));
     float f = get_gain(Y, factors);
 
     if (mode == 0) {
