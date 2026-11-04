@@ -353,86 +353,8 @@ float luteval(float lut[], float x, float vmin=0, float vmax=1)
     return lookupCubic1D(lut, vmin, vmax, x);
 }
 
-const float oklab_M1_t[3][3] = {
-    {0.8189330101, 0.0329845436, 0.0482003018},
-    {0.3618667424, 0.9293118715, 0.2643662691},
-    {-0.1288597137, 0.0361456387, 0.6338517070}
-};
-
-const float oklab_M1inv_t[3][3] = invert_f33(oklab_M1_t);
-
-const float oklab_M2_t[3][3] = {
-    {0.2104542553, 1.9779984951, 0.0259040371},
-    {0.7936177850, -2.4285922050, 0.7827717662},
-    {-0.0040720468, 0.4505937099, -0.8086757660}
-};
-
-const float oklab_M2inv_t[3][3] = invert_f33(oklab_M2_t);
-
-
-float[3] d65xyz2oklab(float xyz[3])
-{
-    const float p = 1.0/3.0;
-    
-    float lms[3] = mult_f3_f33(xyz, oklab_M1_t);
-    for (int i = 0; i < 3; i = i+1) {
-        lms[i] = pow(lms[i], p);
-    }
-    float oklab[3] = mult_f3_f33(lms, oklab_M2_t);
-    return oklab;
-}
-
-
-float[3] oklab2d65xyz(float oklab[3])
-{
-    const float p = 3.0;
-    
-    float lms[3] = mult_f3_f33(oklab, oklab_M2inv_t);
-    for (int i = 0; i < 3; i = i+1) {
-        lms[i] = pow(lms[i], p);
-    }
-    float xyz[3] = mult_f3_f33(lms, oklab_M1inv_t);
-    return xyz;
-}
-
-
-float[3] oklab2hcl(float oklab[3])
-{
-    float h = atan2(oklab[2], oklab[1]);
-    float c = hypot(oklab[2], oklab[1]);
-    float hcl[3] = { h, c, oklab[0] };
-    return hcl;
-}
-
-
-float[3] hcl2oklab(float hcl[3])
-{
-    float a = hcl[1] * cos(hcl[0]);
-    float b = hcl[1] * sin(hcl[0]);
-    float oklab[3] = { hcl[2], a, b };
-    return oklab;
-}
-
-
 const float d65xyz_rec2020_t[3][3] = transpose_f33(mult_f33_f33(d65_d50, xyz_rec2020));
 const float rec2020_d65xyz_t[3][3] = invert_f33(d65xyz_rec2020_t);
-
-float[3] rgb2okhcl(float r, float g, float b)
-{
-    float rgb[3] = { r, g, b };
-    float xyz[3] = mult_f3_f33(rgb, d65xyz_rec2020_t);
-    float oklab[3] = d65xyz2oklab(xyz);
-    return oklab2hcl(oklab);
-}
-
-
-float[3] okhcl2rgb(float hsl[3])
-{
-    float oklab[3] = hcl2oklab(hsl);
-    float xyz[3] = oklab2d65xyz(oklab);
-    return mult_f3_f33(xyz, rec2020_d65xyz_t);
-}
-
 
 // JzAzBz (https://doi.org/10.1364/OE.25.015131), as implemented in ART
 // (Color::rgb2jzazbz and friends). The XYZ values are taken as absolute
@@ -508,7 +430,7 @@ float[3] jzazbz2d65xyz(float jab[3])
 
 // JzAzBz <-> polar form (in the order Jz, cz, hz), where cz is the chroma and
 // hz the hue angle in radians, in (-pi, pi]. Note that this is *not* the order
-// used by the OKHCL functions above (hue, chroma, lightness)
+// used by rgb2jzhcl below (hue, chroma, lightness)
 float[3] jzazbz2jzczhz(float jab[3])
 {
     float jch[3] = { jab[0], hypot(jab[1], jab[2]), atan2(jab[2], jab[1]) };
@@ -544,6 +466,76 @@ float[3] jzczhz2rgb(float jch[3])
 {
     float xyz[3] = jzazbz2d65xyz(jzczhz2jzazbz(jch));
     return mult_f3_f33(xyz, rec2020_d65xyz_t);
+}
+
+
+// JzCzHz in the (hue, chroma, lightness) layout, with chroma and lightness
+// rescaled to numeric ranges similar to those of OKLab, so that thresholds
+// that were tuned on the OKLab values keep working.
+// - hue: hz in radians, in (-pi, pi]
+// - chroma: cz * JZ_C_SCALE. The scale is the average ratio between the
+//   OKLab chroma and cz for the primaries and secondaries of Rec.2020 (for
+//   which it is ~0.3-0.45)
+// - lightness: Jz * JZ_L_SCALE, i.e. 1 for white (RGB = 1, 1, 1)
+// Note that, unlike OKLab's, this lightness is not a cube root of luminance
+const float JZ_C_SCALE = 13.0;
+const float JZ_L_SCALE = 1.0 / rgb2jzczhz(1, 1, 1)[0];
+
+float[3] rgb2jzhcl(float r, float g, float b)
+{
+    float jch[3] = rgb2jzczhz(r, g, b);
+    float hcl[3] = { jch[2], jch[1] * JZ_C_SCALE, jch[0] * JZ_L_SCALE };
+    return hcl;
+}
+
+
+float[3] jzhcl2rgb(float hcl[3])
+{
+    float jch[3] = { hcl[2] / JZ_L_SCALE, hcl[1] / JZ_C_SCALE, hcl[0] };
+    return jzczhz2rgb(jch);
+}
+
+
+// Multiplies the luminance that corresponds to the lightness l of rgb2jzhcl
+// by gain (e.g. gain = 2 is one stop), keeping hue and chroma. This is
+// the JzCzHz counterpart of the cbrt(L^3 * gain) trick for OKLab.
+float jzhcl_lightness_gain(float l, float gain)
+{
+    const float jz = l / JZ_L_SCALE + jz_d0;
+    const float iz = jz / (0.44 + 0.56 * jz);
+    const float iz2 = jz_pq(jz_pq_inv(iz) * gain);
+    return (0.44 * iz2 / (1.0 - 0.56 * iz2) - jz_d0) * JZ_L_SCALE;
+}
+
+
+// Luminance (in the units of the RGB values) that corresponds to the
+// lightness l of rgb2jzhcl. Exact for neutral colours.
+float jzhcl_luminance(float l)
+{
+    const float jz = fmax(l, 0.0) / JZ_L_SCALE + jz_d0;
+    return jz_pq_inv(jz / (0.44 + 0.56 * jz));
+}
+
+
+// The OKLab lightness (cbrt of the luminance) and chroma that a colour given
+// as rgb2jzhcl would have: for scripts whose controls (e.g. the x axis of
+// curves) were designed on OKLab. The lightness is exact for neutrals. The
+// chroma is approximate (within ~30% of the OKLab one for the typical range
+// of luminances and colours): cz/Jz is a measure of saturation that is much
+// more stable than the plain cz across luminances.
+const float JZ_OKC_SCALE = 0.16;
+
+float jzhcl_ok_lightness(float hcl[3])
+{
+    return pow(jzhcl_luminance(hcl[2]), 1.0 / 3.0);
+}
+
+
+float jzhcl_ok_chroma(float hcl[3])
+{
+    const float l = fmax(hcl[2], 1e-6);
+    return JZ_OKC_SCALE * (hcl[1] * JZ_L_SCALE / (JZ_C_SCALE * l)) *
+        jzhcl_ok_lightness(hcl);
 }
 
 

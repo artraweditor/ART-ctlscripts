@@ -31,15 +31,15 @@ void ART_main(varying float r, varying float g, varying float b,
     const float p = fmax(pow(0.5 - pivot / 2, 2.4), 0.001);
     const float f = p / intp(s, pq_curve(sl(pq_curve(p, false)), true), p);
     float rgb[3] = { fmax(r, 0), fmax(g, 0), fmax(b, 0) };
-    float hue = rgb2okhcl(rgb[0], rgb[1], rgb[2])[0];
+    float hue = rgb2jzhcl(rgb[0], rgb[1], rgb[2])[0];
     for (int i = 0; i < 3; i = i+1) {
         float v = pq_curve(rgb[i], false);
         float vv = sl(v);
         rgb[i] = intp(s, pq_curve(vv, true) * f, rgb[i]);
     }
-    float hcl[3] = rgb2okhcl(rgb[0], rgb[1], rgb[2]);
+    float hcl[3] = rgb2jzhcl(rgb[0], rgb[1], rgb[2]);
     hcl[0] = hue;
-    rgb = okhcl2rgb(hcl);
+    rgb = jzhcl2rgb(hcl);
     rout = rgb[0];
     gout = rgb[1];
     bout = rgb[2];

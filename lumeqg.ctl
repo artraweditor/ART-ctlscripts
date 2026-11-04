@@ -12,7 +12,8 @@ float tolin(float y, float base)
 
 float lum(float hsl[3], float guide, int detail)
 {
-    float ret = intp(detail / 100.0, rgb2okhcl(guide, guide, guide)[2], hsl[2]);
+    float g[3] = rgb2jzhcl(guide, guide, guide);
+    float ret = intp(detail / 100.0, jzhcl_ok_lightness(g), jzhcl_ok_lightness(hsl));
     return clamp(ret, 0, 1);   
 }
 
@@ -28,7 +29,7 @@ void ART_main(varying float r, varying float g, varying float b,
               float hcurve[256], float scurve[256], float lcurve[256],
               int detail)
 {
-    float hsl[3] = rgb2okhcl(r, g, b);
+    float hsl[3] = rgb2jzhcl(r, g, b);
     float y = lum(hsl, guide, detail);
     float v = luteval(hcurve, y);
     float f = tolin(v, 50) * M_PI;
@@ -39,8 +40,9 @@ void ART_main(varying float r, varying float g, varying float b,
     hsl[1] = hsl[1] * s;
     v = luteval(lcurve, y) - 0.5;
     f = 1 + sgn(v) * pow(v, 2) * 5;
-    hsl[2] = hsl[2] * f;
-    float rgb[3] = okhcl2rgb(hsl);
+    // f scales the OKLab lightness, i.e. the luminance by f^3
+    hsl[2] = jzhcl_lightness_gain(hsl[2], pow(fmax(f, 0.0), 3));
+    float rgb[3] = jzhcl2rgb(hsl);
     rout = rgb[0];
     gout = rgb[1];
     bout = rgb[2];
@@ -54,7 +56,7 @@ void ART_fill_pipette(varying float r, varying float g, varying float b,
                       output varying float bout,
                       int curve_id, int detail)
 {
-    float y = lum(rgb2okhcl(r, g, b), guide, detail);
+    float y = lum(rgb2jzhcl(r, g, b), guide, detail);
     rout = y;
     gout = y;
     bout = y;

@@ -117,7 +117,7 @@ float[3] to_hsl(float r, float g, float b, int mode)
     if (mode == 0) {
         return rgb2hsl(r, g, b);
     } else {
-        return rgb2okhcl(r, g, b);
+        return rgb2jzhcl(r, g, b);
     }
 }
 
@@ -128,7 +128,7 @@ float[3] to_rgb(float hsl[3], int mode)
     if (mode == 0) {
         return hsl2rgb(hsl);
     } else {
-        return okhcl2rgb(hsl);
+        return jzhcl2rgb(hsl);
     }
 }
 
@@ -140,10 +140,10 @@ const float hpars[2][4] = { // parameters for hue tweaks
         rgb2hsl(1, 0.5, 0)[0] // ohue
     },
     {
-        rgb2okhcl(1, 0, 0)[0], // rhue
-        rgb2okhcl(0, 0, 1)[0], // bhue
-        rgb2okhcl(1, 1, 0)[0], // yhue
-        rgb2okhcl(1, 0.5, 0)[0] // ohue
+        rgb2jzhcl(1, 0, 0)[0], // rhue
+        rgb2jzhcl(0, 0, 1)[0], // bhue
+        rgb2jzhcl(1, 1, 0)[0], // yhue
+        rgb2jzhcl(1, 0.5, 0)[0] // ohue
     }
 };
 

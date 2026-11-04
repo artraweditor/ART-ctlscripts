@@ -18,8 +18,8 @@ void ART_main(varying float r, varying float g, varying float b,
               output varying float bout,
               float hcurve[256], float scurve[256], float lcurve[256])
 {
-    float hsl[3] = rgb2okhcl(r, g, b);
-    float y = pow(clamp(hsl[1], 0, 1), 1.0/3.5);
+    float hsl[3] = rgb2jzhcl(r, g, b);
+    float y = pow(clamp(jzhcl_ok_chroma(hsl), 0, 1), 1.0/3.5);
     float v = luteval(hcurve, y);
     float f = tolin(v, 50) * M_PI;
     hsl[0] = hsl[0] + f;
@@ -29,8 +29,9 @@ void ART_main(varying float r, varying float g, varying float b,
     hsl[1] = hsl[1] * s;
     v = luteval(lcurve, y) - 0.5;
     f = 1 + sgn(v) * pow(v, 2) * 5;
-    hsl[2] = hsl[2] * f;
-    float rgb[3] = okhcl2rgb(hsl);
+    // f scales the OKLab lightness, i.e. the luminance by f^3
+    hsl[2] = jzhcl_lightness_gain(hsl[2], pow(fmax(f, 0.0), 3));
+    float rgb[3] = jzhcl2rgb(hsl);
     rout = rgb[0];
     gout = rgb[1];
     bout = rgb[2];
@@ -43,8 +44,8 @@ void ART_fill_pipette(varying float r, varying float g, varying float b,
                       output varying float bout,
                       int curve_id)
 {
-    float hsl[3] = rgb2okhcl(r, g, b);
-    float y = pow(clamp(hsl[1], 0, 1), 1.0/3.5);
+    float hsl[3] = rgb2jzhcl(r, g, b);
+    float y = pow(clamp(jzhcl_ok_chroma(hsl), 0, 1), 1.0/3.5);
     rout = y;
     gout = y;
     bout = y;

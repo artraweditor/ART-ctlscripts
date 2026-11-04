@@ -25,13 +25,13 @@ import "_artlib";
 
 float[3] to_hsl(float r, float g, float b)
 {
-    return rgb2okhcl(r, g, b);
+    return rgb2jzhcl(r, g, b);
 }
 
 
 float[3] to_rgb(float hsl[3])
 {
-    return okhcl2rgb(hsl);
+    return jzhcl2rgb(hsl);
 }
 
 

@@ -169,11 +169,11 @@ void ART_main(varying float r, varying float g, varying float b,
         rgb[0] = r;
         rgb[1] = g;
         rgb[2] = b;
-        float hsl[3] = rgb2okhcl(r, g, b);
+        float hsl[3] = rgb2jzhcl(r, g, b);
         f = log2(f) * 0.5;
         float sat = fmax(1 + f, 0);
         hsl[1] = hsl[1] * sat;
-        rgb = okhcl2rgb(hsl);
+        rgb = jzhcl2rgb(hsl);
         rout = rgb[0];
         gout = rgb[1];
         bout = rgb[2];
