@@ -19,6 +19,8 @@ Note that many of the scripts depend also on the `_artlib.ctl` auxiliary library
 - `density.ctl`: increase saturation while also lowering luminance, emulating
   ["film density" filters available for some video editors](https://filmmakingelements.com/davinci-resolve-color-density-dctl/)
 
+- `fattoni.ctl`: Fat Toni applies split toning to monochrome or color images through independent hue and saturation controls for highlights, shadows, and an optional base "paper" tint. Its mixing controls let you shape how those tones blend across the tonal range by adjusting the midpoint, tonal separation, and overall contrast.
+
 - `gamutcompress.ctl`: gamut compression using [the ACES method](https://github.com/jedypod/gamut-compress)
 
 - `hueeq.ctl`: adjust the hue, saturation or luminance of each pixel
@@ -34,6 +36,8 @@ Note that many of the scripts depend also on the `_artlib.ctl` auxiliary library
 
 - `sateq.ctl`: adjust the hue, saturation or luminance of each pixel
   according to its saturation
+
+- `siliconbonk.ctl` Silicon Bonk converts color images to black and white using lens-filter-style hue/luminance separation, a film-like midpoint/contrast curve, and polynomial highlight/shadow protection to prevent clipping. It also lets you blend original saturation back into the monochrome result for subtle residual color effects.
 
 - `submix.ctl`: mixes a user-selected RGB color with the image
   [in a subtractive manner](http://scottburns.us/subtractive-color-mixture/)

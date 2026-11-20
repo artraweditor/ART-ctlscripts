@@ -101,4 +101,17 @@ CTL_WB_AND_PRIMARIES_CORRECTION;Correzione WB e primari
 CTL_WHITE;Bianco
 CTL_WHITE_POINT;Punto bianco
 CTL_YELLOW;Giallo
+CTL_BASE_HUE;Tinta base
+CTL_BASE_LUMINANCE;Luminanza base
+CTL_BASE_SATURATION;Saturazione base
+CTL_FATTONI_SPLIT_TONING;FatToni - Divisione dei toni
+CTL_HIGHLIGHT_HUE;Tinta alte luci
+CTL_HIGHLIGHT_SATURATION;Saturazione alte luci
+CTL_LUMINANCE_CHANGE;Variazione luminanza
+CTL_MIDPOINT;Punto medio
+CTL_PRESERVE_HIGHLIGHTS_DETAILS;Preserva alte luci/dettagli
+CTL_SEPARATION_MIX;Separazione (miscela)
+CTL_SHADOW_HUE;Tinta ombre
+CTL_SHADOW_SATURATION;Saturazione ombre
+CTL_SILICONBONK_BW;SiliconBonk - Conversione B/N
 
